@@ -59,5 +59,3 @@ jobs:
           fail_on_unmatched_files: true
           files: |
             release/*.exe
-            release/*.blockmap
-            release/latest.yml
