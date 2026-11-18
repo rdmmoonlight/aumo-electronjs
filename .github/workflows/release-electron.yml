@@ -49,7 +49,7 @@ jobs:
 
       - name: Build Frontend & Package Windows (.exe)
         working-directory: ./electron
-        run: pnpm dist:win
+        run: pnpm electron:build
         env:
           # Nonaktifkan code signing otomatis karena tidak pakai sertifikat berbayar
           CSC_IDENTITY_AUTO_DISCOVERY: false
