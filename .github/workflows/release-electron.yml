@@ -39,19 +39,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: 'pnpm'
 
-      - name: Install dependencies (Frontend)
+      - name: Install dependencies
         run: pnpm install
 
-      - name: Install dependencies (Electron)
-        working-directory: ./electron
-        run: pnpm install
-
-      - name: Build Frontend & Package Windows (.exe)
-        working-directory: ./electron
+      - name: Build & Package Windows (.exe)
         run: pnpm electron:build
         env:
-          # Nonaktifkan code signing otomatis karena tidak pakai sertifikat berbayar
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Upload to GitHub Release
@@ -61,7 +56,8 @@ jobs:
           name: ${{ inputs.release_name }}
           draft: ${{ inputs.draft }}
           generate_release_notes: true
+          fail_on_unmatched_files: true
           files: |
-            electron/release/*.exe
-            electron/release/*.blockmap
-            electron/release/latest.yml
+            release/*.exe
+            release/*.blockmap
+            release/latest.yml
